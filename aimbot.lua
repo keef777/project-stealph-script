@@ -85,12 +85,12 @@ local function createGui()
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Title.BackgroundTransparency = 1
     Title.Size = UDim2.new(1, 0, 0, 50)
-    Title.Font = Enum.Font.SourceSansBold
-    Title.Text = "Painel de Controle"
+    Title.Font = Enum.Font.GothamBlack -- Fonte mais grossa
+    Title.Text = "Project Aim"
     Title.TextColor3 = Color3.fromRGB(170, 0, 255)
     Title.TextSize = 24
 
-    ToggleAimbotButton.Parent = MainFrame
+        ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 60)
     ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 50)
@@ -138,7 +138,7 @@ local function createGui()
     UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
-    -- Funções para os botões
+        -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -168,15 +168,31 @@ local function createGui()
     AimAtTorsoButton.TouchTap:Connect(setAimAtTorso)
 
     -- Função para abrir e fechar o painel
-    local function toggleMainFrame()
-        MainFrame.Visible = not MainFrame.Visible
+    local function getClosestPlayerToCursor()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local targetPart = aimAtHead and player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("UpperTorso")
+            if targetPart then
+                local targetPosition = targetPart.Position
+                local targetScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(targetPosition)
+                local mouseLocation = UserInputService:GetMouseLocation()
+                local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mouseLocation).Magnitude
+
+                if distance < shortestDistance then
+                    closestPlayer = player
+                    shortestDistance = distance
+                end
+            end
+        end
     end
 
-    LogoButton.MouseButton1Click:Connect(toggleMainFrame)
-    LogoButton.TouchTap:Connect(toggleMainFrame)
-end
+    return closestPlayer
+    end
 
-RunService.RenderStepped:Connect(function()
+    RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
         local target = getClosestPlayerToCursor()
         if target and target.Character then
