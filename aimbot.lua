@@ -18,7 +18,7 @@ fovCircle.Thickness = 2
 fovCircle.Color = Color3.fromRGB(255, 0, 0)
 fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
 
-local gameId = 84065576744468 -- Substitua pelo ID real do jogo "Foguete PvP"
+local gameId = 1234567890 -- Substitua pelo ID real do jogo "Foguete PvP"
 if game.PlaceId ~= gameId then
     print("Jogo não corresponde ao ID especificado.")
     return
@@ -48,7 +48,7 @@ local function createGui()
     Title.BackgroundTransparency = 1
     Title.Size = UDim2.new(1, 0, 0, 50)
     Title.Font = Enum.Font.SourceSansBold
-    Title.Text = "Painel de Controle"
+    Title.Text = "Painel de Controle Do Aimbot Do Alexandre"
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     Title.TextSize = 24
 
@@ -57,7 +57,7 @@ local function createGui()
     ToggleAimbotButton.Position = UDim2.new(0, 50, 0, 60)
     ToggleAimbotButton.Size = UDim2.new(0, 200, 0, 50)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
-    ToggleAimbotButton.Text = "Toggle Aimbot"
+    ToggleAimbotButton.Text = "Aimbozin"
     ToggleAimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     ToggleAimbotButton.TextSize = 18
 
@@ -66,7 +66,7 @@ local function createGui()
     SetFovButton.Position = UDim2.new(0, 50, 0, 120)
     SetFovButton.Size = UDim2.new(0, 200, 0, 50)
     SetFovButton.Font = Enum.Font.SourceSansBold
-    SetFovButton.Text = "Set FOV"
+    SetFovButton.Text = "O Fov Seu Burro"
     SetFovButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     SetFovButton.TextSize = 18
 
@@ -151,8 +151,9 @@ RunService.RenderStepped:Connect(function()
         local target = getClosestPlayerToCursor()
         if target and target.Character and target.Character:FindFirstChild("Head") then
             local headPosition = target.Character.Head.Position
+            local aimAtPos = aimAtHead and headPosition or target.Character.HumanoidRootPart.Position
             local camera = workspace.CurrentCamera
-            camera.CFrame = CFrame.new(camera.CFrame.Position, headPosition)
+            camera.CFrame = CFrame.new(camera.CFrame.Position, aimAtPos)
         end
     end
 end)
