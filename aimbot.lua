@@ -57,11 +57,11 @@ local function createGui()
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 450, 0, 300)
-    MainFrame.BorderSizePixel = 0
-    MainFrame.BackgroundTransparency = 0 -- Fundo preto
+    MainFrame.Size = UDim2.new(0, 400, 0, 200)
+    MainFrame.BorderSizePixel = 2
+    MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
     MainFrame.Active = true
     MainFrame.Draggable = true
 
@@ -89,7 +89,7 @@ local function createGui()
     ProjectAimLabel.TextSize = 28
     ProjectAimLabel.Position = UDim2.new(0, 10, 0, 10)
 
-    Title.Parent = MainFrame
+        Title.Parent = MainFrame
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Title.BackgroundTransparency = 1
     Title.Size = UDim2.new(1, 0, 0, 50)
@@ -100,7 +100,7 @@ local function createGui()
 
     ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleAimbotButton.Position = UDim2.new(0, 50, 0, 60)
+    ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 60)
     ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 50)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Toggle Aimbot"
@@ -112,7 +112,7 @@ local function createGui()
 
     ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleESPButton.Position = UDim2.new(0, 50, 0, 160)
+    ToggleESPButton.Position = UDim2.new(0, 20, 0, 120)
     ToggleESPButton.Size = UDim2.new(0, 350, 0, 50)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
     ToggleESPButton.Text = "Toggle ESP"
@@ -122,7 +122,7 @@ local function createGui()
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
 
-    -- Funções para os botões
+        -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
