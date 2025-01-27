@@ -44,7 +44,6 @@ for _, player in pairs(Players:GetPlayers()) do
         createESP(player)
     end
 end
-
 local function createGui()
     local ScreenGui = Instance.new("ScreenGui")
     local MainFrame = Instance.new("Frame")
@@ -57,11 +56,11 @@ local function createGui()
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 350, 0, 450)
+    MainFrame.Size = UDim2.new(0, 350, 0, 350)
     MainFrame.BorderSizePixel = 0
-    MainFrame.BackgroundTransparency = 0.2
+    MainFrame.BackgroundTransparency = 0 -- Fundo preto
     MainFrame.Active = true
     MainFrame.Draggable = true
 
@@ -109,8 +108,7 @@ local function createGui()
     local UICornerAimbotButton = Instance.new("UICorner")
     UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
     UICornerAimbotButton.Parent = ToggleAimbotButton
-
-    local AimbotDescription = Instance.new("TextLabel")
+        local AimbotDescription = Instance.new("TextLabel")
     AimbotDescription.Parent = MainFrame
     AimbotDescription.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     AimbotDescription.BackgroundTransparency = 1
@@ -120,7 +118,8 @@ local function createGui()
     AimbotDescription.Text = "Liga/Desliga a função de mira automática"
     AimbotDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
     AimbotDescription.TextSize = 14
-        ToggleESPButton.Parent = MainFrame
+
+    ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleESPButton.Position = UDim2.new(0, 50, 0, 160)
     ToggleESPButton.Size = UDim2.new(0, 250, 0, 50)
@@ -142,8 +141,7 @@ local function createGui()
     ESPDescription.Text = "Liga/Desliga a visualização dos jogadores"
     ESPDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
     ESPDescription.TextSize = 14
-
-    -- Funções para os botões
+        -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -173,6 +171,19 @@ local function getClosestPlayerToCursor()
         if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("UpperTorso") then
             local torsoPosition = player.Character.UpperTorso.Position
             local torsoScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
+            local mouseLocation = UserInputService:GetMouseLocation()
+            local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
+
+            if distance < shortestDistance then
+                closestPlayer = player
+                shortestDistance = distance
+            end
+        end
+    end
+
+    return closestPlayer
+end
+local vectorScreenPos, onScreen) = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
             local mouseLocation = UserInputService:GetMouseLocation()
             local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
 
