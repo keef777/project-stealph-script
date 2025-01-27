@@ -59,11 +59,11 @@ local function createGui()
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 450, 0, 350)
-    MainFrame.BorderSizePixel = 0
-    MainFrame.BackgroundTransparency = 0 -- Fundo preto
+    MainFrame.Size = UDim2.new(0, 400, 0, 300)
+    MainFrame.BorderSizePixel = 2
+    MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
     MainFrame.Active = true
     MainFrame.Draggable = true
 
@@ -138,7 +138,31 @@ local function createGui()
     UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
-        -- Funções para os botões
+        AimAtHeadButton.Parent = MainFrame
+    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 180)
+    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtHeadButton.Font = Enum.Font.SourceSansBold
+    AimAtHeadButton.Text = "Aim at Head"
+    AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtHeadButton.TextSize = 18
+    local UICornerAimAtHeadButton = Instance.new("UICorner")
+    UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtHeadButton.Parent = AimAtHeadButton
+
+    AimAtTorsoButton.Parent = MainFrame
+    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 180)
+    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtTorsoButton.Font = Enum.Font.SourceSansBold
+    AimAtTorsoButton.Text = "Aim at Torso"
+    AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtTorsoButton.TextSize = 18
+    local UICornerAimAtTorsoButton = Instance.new("UICorner")
+    UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
+
+    -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -197,23 +221,6 @@ local function getClosestPlayerToCursor()
                     closestPlayer = player
                     shortestDistance = distance
                 end
-            end
-        end
-    end
-
-    return closestPlayer
-end
-
-for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
-            local headPosition = player.Character.Head.Position
-            local headScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(headPosition)
-            local mouseLocation = UserInputService:GetMouseLocation()
-            local distance = (Vector2.new(headScreenPos.X, headScreenPos.Y) - mouseLocation).Magnitude
-
-            if distance < shortestDistance then
-                closestPlayer = player
-                shortestDistance = distance
             end
         end
     end
