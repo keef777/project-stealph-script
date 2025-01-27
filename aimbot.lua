@@ -18,9 +18,7 @@ local aimAtHead = true
 fovCircle.Visible = true
 fovCircle.Radius = aimbotFov
 fovCircle.Thickness = 2
-fovCircle.Transparency = 1
 fovCircle.Color = Color3.fromRGB(255, 0, 0)
-fovCircle.Filled = false -- Deixa a parte interna do círculo invisível
 fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
 
 local gameId = 84065576744468 -- Substitua pelo ID real do jogo "Foguete PvP"
@@ -147,13 +145,14 @@ local function createGui()
     DecreaseFovButton.TouchTap:Connect(decreaseFov)
 
     -- Função para abrir e fechar o painel
-    local function toggleMainFrame()
+    LogoButton.MouseButton1Click:Connect(function()
         MainFrame.Visible = not MainFrame.Visible
-    end
+    end)
 
-    LogoButton.MouseButton1Click:Connect(toggleMainFrame)
     -- Suporte a dispositivos móveis para o botão de logo
-    LogoButton.TouchTap:Connect(toggleMainFrame)
+    LogoButton.TouchTap:Connect(function()
+        MainFrame.Visible = not MainFrame.Visible
+    end)
 end
 
 local function getClosestPlayerToCursor()
@@ -186,4 +185,10 @@ RunService.RenderStepped:Connect(function()
             local headPosition = target.Character.Head.Position
             local aimAtPos = aimAtHead and headPosition or target.Character.HumanoidRootPart.Position
             local camera = workspace.CurrentCamera
-            camera.C
+            camera.CFrame = CFrame.new(camera.CFrame.Position, aimAtPos)
+        end
+    end
+end)
+
+createGui()
+print("Painel de controle criado.")
