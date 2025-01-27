@@ -1,5 +1,5 @@
 -- Verificação para garantir que o script funcione apenas no jogo "Foguete PvP"
-local gameId = 1234567890 -- Substitua pelo ID real do jogo "Foguete PvP"
+local gameId = 84065576744468 -- Substitua pelo ID real do jogo "Foguete PvP"
 if game.PlaceId ~= gameId then
     return
 end
