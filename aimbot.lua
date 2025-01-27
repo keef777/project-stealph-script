@@ -53,14 +53,17 @@ local function createGui()
     local ToggleESPButton = Instance.new("TextButton")
     local Title = Instance.new("TextLabel")
     local ProjectAimLabel = Instance.new("TextLabel")
+
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 300, 0, 400)
+    MainFrame.Size = UDim2.new(0, 350, 0, 450)
     MainFrame.BorderSizePixel = 0
     MainFrame.BackgroundTransparency = 0.2
+    MainFrame.Active = true
+    MainFrame.Draggable = true
 
     local UICornerMainFrame = Instance.new("UICorner")
     UICornerMainFrame.CornerRadius = UDim.new(0, 10)
@@ -71,18 +74,10 @@ local function createGui()
     LogoButton.Position = UDim2.new(0, 10, 0, 10)
     LogoButton.Size = UDim2.new(0, 50, 0, 50) -- Tamanho reduzido
     LogoButton.Text = ""
+    LogoButton.Draggable = true
     local UICornerLogo = Instance.new("UICorner")
     UICornerLogo.CornerRadius = UDim.new(0, 25)
     UICornerLogo.Parent = LogoButton
-
-    Title.Parent = MainFrame
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1
-    Title.Size = UDim2.new(1, 0, 0, 50)
-    Title.Font = Enum.Font.SourceSansBold
-    Title.Text = "Painel de Controle"
-    Title.TextColor3 = Color3.fromRGB(170, 0, 255)
-    Title.TextSize = 24
 
     ProjectAimLabel.Parent = MainFrame
     ProjectAimLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -94,10 +89,19 @@ local function createGui()
     ProjectAimLabel.TextSize = 28
     ProjectAimLabel.Position = UDim2.new(0, 10, 0, 10)
 
+    Title.Parent = MainFrame
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1
+    Title.Size = UDim2.new(1, 0, 0, 50)
+    Title.Font = Enum.Font.SourceSansBold
+    Title.Text = "Painel de Controle"
+    Title.TextColor3 = Color3.fromRGB(170, 0, 255)
+    Title.TextSize = 24
+
     ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleAimbotButton.Position = UDim2.new(0, 50, 0, 60)
-    ToggleAimbotButton.Size = UDim2.new(0, 200, 0, 50)
+    ToggleAimbotButton.Size = UDim2.new(0, 250, 0, 50)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Toggle Aimbot"
     ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -106,10 +110,20 @@ local function createGui()
     UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
     UICornerAimbotButton.Parent = ToggleAimbotButton
 
-    ToggleESPButton.Parent = MainFrame
+    local AimbotDescription = Instance.new("TextLabel")
+    AimbotDescription.Parent = MainFrame
+    AimbotDescription.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotDescription.BackgroundTransparency = 1
+    AimbotDescription.Position = UDim2.new(0, 50, 0, 115)
+    AimbotDescription.Size = UDim2.new(0, 250, 0, 30)
+    AimbotDescription.Font = Enum.Font.SourceSans
+    AimbotDescription.Text = "Liga/Desliga a função de mira automática"
+    AimbotDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimbotDescription.TextSize = 14
+        ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleESPButton.Position = UDim2.new(0, 50, 0, 120)
-    ToggleESPButton.Size = UDim2.new(0, 200, 0, 50)
+    ToggleESPButton.Position = UDim2.new(0, 50, 0, 160)
+    ToggleESPButton.Size = UDim2.new(0, 250, 0, 50)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
     ToggleESPButton.Text = "Toggle ESP"
     ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -117,7 +131,19 @@ local function createGui()
     local UICornerESPButton = Instance.new("UICorner")
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
-        -- Funções para os botões
+
+    local ESPDescription = Instance.new("TextLabel")
+    ESPDescription.Parent = MainFrame
+    ESPDescription.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ESPDescription.BackgroundTransparency = 1
+    ESPDescription.Position = UDim2.new(0, 50, 0, 215)
+    ESPDescription.Size = UDim2.new(0, 250, 0, 30)
+    ESPDescription.Font = Enum.Font.SourceSans
+    ESPDescription.Text = "Liga/Desliga a visualização dos jogadores"
+    ESPDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
+    ESPDescription.TextSize = 14
+
+    -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -159,7 +185,6 @@ local function getClosestPlayerToCursor()
 
     return closestPlayer
 end
-
 RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
         local target = getClosestPlayerToCursor()
