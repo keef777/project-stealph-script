@@ -44,6 +44,7 @@ for _, player in pairs(Players:GetPlayers()) do
         createESP(player)
     end
 end
+
 local function createGui()
     local ScreenGui = Instance.new("ScreenGui")
     local MainFrame = Instance.new("Frame")
@@ -58,7 +59,7 @@ local function createGui()
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 350, 0, 350)
+    MainFrame.Size = UDim2.new(0, 450, 0, 300)
     MainFrame.BorderSizePixel = 0
     MainFrame.BackgroundTransparency = 0 -- Fundo preto
     MainFrame.Active = true
@@ -100,7 +101,7 @@ local function createGui()
     ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleAimbotButton.Position = UDim2.new(0, 50, 0, 60)
-    ToggleAimbotButton.Size = UDim2.new(0, 250, 0, 50)
+    ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 50)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Toggle Aimbot"
     ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -108,21 +109,11 @@ local function createGui()
     local UICornerAimbotButton = Instance.new("UICorner")
     UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
     UICornerAimbotButton.Parent = ToggleAimbotButton
-        local AimbotDescription = Instance.new("TextLabel")
-    AimbotDescription.Parent = MainFrame
-    AimbotDescription.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    AimbotDescription.BackgroundTransparency = 1
-    AimbotDescription.Position = UDim2.new(0, 50, 0, 115)
-    AimbotDescription.Size = UDim2.new(0, 250, 0, 30)
-    AimbotDescription.Font = Enum.Font.SourceSans
-    AimbotDescription.Text = "Liga/Desliga a função de mira automática"
-    AimbotDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimbotDescription.TextSize = 14
 
     ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleESPButton.Position = UDim2.new(0, 50, 0, 160)
-    ToggleESPButton.Size = UDim2.new(0, 250, 0, 50)
+    ToggleESPButton.Size = UDim2.new(0, 350, 0, 50)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
     ToggleESPButton.Text = "Toggle ESP"
     ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -131,17 +122,7 @@ local function createGui()
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
 
-    local ESPDescription = Instance.new("TextLabel")
-    ESPDescription.Parent = MainFrame
-    ESPDescription.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ESPDescription.BackgroundTransparency = 1
-    ESPDescription.Position = UDim2.new(0, 50, 0, 215)
-    ESPDescription.Size = UDim2.new(0, 250, 0, 30)
-    ESPDescription.Font = Enum.Font.SourceSans
-    ESPDescription.Text = "Liga/Desliga a visualização dos jogadores"
-    ESPDescription.TextColor3 = Color3.fromRGB(170, 0, 255)
-    ESPDescription.TextSize = 14
-        -- Funções para os botões
+    -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -168,25 +149,11 @@ local function getClosestPlayerToCursor()
     local shortestDistance = math.huge
 
     for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("UpperTorso") then
-            local torsoPosition = player.Character.UpperTorso.Position
-            local torsoScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local headPosition = player.Character.Head.Position
+            local headScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(headPosition)
             local mouseLocation = UserInputService:GetMouseLocation()
-            local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
-
-            if distance < shortestDistance then
-                closestPlayer = player
-                shortestDistance = distance
-            end
-        end
-    end
-
-    return closestPlayer
-end
-
-local vectorScreenPos, onScreen) = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
-            local mouseLocation = UserInputService:GetMouseLocation()
-            local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
+            local distance = (Vector2.new(headScreenPos.X, headScreenPos.Y) - mouseLocation).Magnitude
 
             if distance < shortestDistance then
                 closestPlayer = player
@@ -201,10 +168,11 @@ end
 RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
         local target = getClosestPlayerToCursor()
-        if target and target.Character and target.Character:FindFirstChild("UpperTorso") then
-            local torsoPosition = target.Character.UpperTorso.Position
+        if target and target.Character and target.Character:FindFirstChild("Head") then
+            local headPosition = target.Character.Head.Position
             local camera = workspace.CurrentCamera
-            camera.CFrame = CFrame.new(camera.CFrame.Position, torsoPosition)
+            camera.CFrame = CFrame.new(camera.CFrame.Position, headPosition)
+            wait(5) -- Gruda no mesmo player por 5 segundos
         end
     end
 end)
