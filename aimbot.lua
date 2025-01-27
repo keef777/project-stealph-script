@@ -52,25 +52,28 @@ local function createGui()
     local ToggleAimbotButton = Instance.new("TextButton")
     local ToggleESPButton = Instance.new("TextButton")
     local Title = Instance.new("TextLabel")
-
+    local ProjectAimLabel = Instance.new("TextLabel")
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 300, 0, 350)
-    MainFrame.Active = true
-    MainFrame.Draggable = true
-    MainFrame.Visible = false
+    MainFrame.Size = UDim2.new(0, 300, 0, 400)
+    MainFrame.BorderSizePixel = 0
+    MainFrame.BackgroundTransparency = 0.2
+
+    local UICornerMainFrame = Instance.new("UICorner")
+    UICornerMainFrame.CornerRadius = UDim.new(0, 10)
+    UICornerMainFrame.Parent = MainFrame
 
     LogoButton.Parent = ScreenGui
     LogoButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     LogoButton.Position = UDim2.new(0, 10, 0, 10)
     LogoButton.Size = UDim2.new(0, 50, 0, 50) -- Tamanho reduzido
     LogoButton.Text = ""
-    local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 25) -- Pontas arredondadas
-    UICorner.Parent = LogoButton
+    local UICornerLogo = Instance.new("UICorner")
+    UICornerLogo.CornerRadius = UDim.new(0, 25)
+    UICornerLogo.Parent = LogoButton
 
     Title.Parent = MainFrame
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -78,8 +81,18 @@ local function createGui()
     Title.Size = UDim2.new(1, 0, 0, 50)
     Title.Font = Enum.Font.SourceSansBold
     Title.Text = "Painel de Controle"
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextColor3 = Color3.fromRGB(170, 0, 255)
     Title.TextSize = 24
+
+    ProjectAimLabel.Parent = MainFrame
+    ProjectAimLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ProjectAimLabel.BackgroundTransparency = 1
+    ProjectAimLabel.Size = UDim2.new(1, 0, 0, 30)
+    ProjectAimLabel.Font = Enum.Font.GothamBold
+    ProjectAimLabel.Text = "Project Aim"
+    ProjectAimLabel.TextColor3 = Color3.fromRGB(170, 0, 255)
+    ProjectAimLabel.TextSize = 28
+    ProjectAimLabel.Position = UDim2.new(0, 10, 0, 10)
 
     ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -87,8 +100,11 @@ local function createGui()
     ToggleAimbotButton.Size = UDim2.new(0, 200, 0, 50)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Toggle Aimbot"
-    ToggleAimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
     ToggleAimbotButton.TextSize = 18
+    local UICornerAimbotButton = Instance.new("UICorner")
+    UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimbotButton.Parent = ToggleAimbotButton
 
     ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -96,10 +112,12 @@ local function createGui()
     ToggleESPButton.Size = UDim2.new(0, 200, 0, 50)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
     ToggleESPButton.Text = "Toggle ESP"
-    ToggleESPButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
     ToggleESPButton.TextSize = 18
-
-    -- Funções para os botões
+    local UICornerESPButton = Instance.new("UICorner")
+    UICornerESPButton.CornerRadius = UDim.new(0, 10)
+    UICornerESPButton.Parent = ToggleESPButton
+        -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
