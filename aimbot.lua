@@ -167,9 +167,46 @@ local function createGui()
     ToggleFovVisibilityButton.TouchTap:Connect(toggleFovVisibility)
 
     -- Função para abrir e fechar o painel
-    local function toggleMainFrame()
-        MainFrame.Visible = not MainFrame.Visible
+local function toggleMainFrame()
+    MainFrame.Visible = not MainFrame.Visible
+end
+
+LogoButton.MouseButton1Click:Connect(toggleMainFrame)
+LogoButton.TouchTap:Connect(toggleMainFrame)
+
+RunService.RenderStepped:Connect(function()
+    fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
+
+    if aimbotEnabled then
+        local target = getClosestPlayerToCursor()
+        if target and target.Character and target.Character:FindFirstChild("UpperTorso") then
+            local torsoPosition = target.Character.UpperTorso.Position
+            local camera = workspace.CurrentCamera
+            camera.CFrame = CFrame.new(camera.CFrame.Position, torsoPosition)
+        end
+    end
+end)
+
+local function getClosestPlayerToCursor()
+    local closestPlayer = nil
+    local shortestDistance = aimbotFov
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("UpperTorso") then
+            local torsoPosition = player.Character.UpperTorso.Position
+            local torsoScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
+            local mouseLocation = UserInputService:GetMouseLocation()
+            local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
+
+            if distance < shortestDistance then
+                closestPlayer = player
+                shortestDistance = distance
+            end
+        end
     end
 
-    LogoButton.MouseButton1Click:Connect(toggleMainFrame)
-    LogoButton.TouchTap:Connect(toggleMainFrame)
+    return closestPlayer
+end
+
+createGui()
+print("Painel de controle criado.")
