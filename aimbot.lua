@@ -183,6 +183,7 @@ local function getClosestPlayerToCursor()
 
     return closestPlayer
 end
+
 local vectorScreenPos, onScreen) = workspace.CurrentCamera:WorldToScreenPoint(torsoPosition)
             local mouseLocation = UserInputService:GetMouseLocation()
             local distance = (Vector2.new(torsoScreenPos.X, torsoScreenPos.Y) - mouseLocation).Magnitude
@@ -196,6 +197,7 @@ local vectorScreenPos, onScreen) = workspace.CurrentCamera:WorldToScreenPoint(to
 
     return closestPlayer
 end
+
 RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
         local target = getClosestPlayerToCursor()
