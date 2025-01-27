@@ -12,16 +12,17 @@ local Drawing = Drawing or require("Drawing")
 local aimbotEnabled = false
 local aimbotFov = 50
 local fovCircle = Drawing.new("Circle")
-local aimAtHead = true
+local fovVisible = true
 
 -- Configurações do círculo de FOV
-fovCircle.Visible = true
+fovCircle.Visible = fovVisible
 fovCircle.Radius = aimbotFov
 fovCircle.Thickness = 2
 fovCircle.Color = Color3.fromRGB(255, 0, 0)
+fovCircle.Filled = false -- Deixa a parte interna do círculo invisível
 fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
 
-local gameId = 84065576744468 -- Substitua pelo ID real do jogo "Foguete PvP"
+local gameId = 1234567890 -- Substitua pelo ID real do jogo "Foguete PvP"
 if game.PlaceId ~= gameId then
     print("Jogo não corresponde ao ID especificado.")
     return
@@ -35,6 +36,7 @@ local function createGui()
     local SetFovButton = Instance.new("TextButton")
     local IncreaseFovButton = Instance.new("TextButton")
     local DecreaseFovButton = Instance.new("TextButton")
+    local ToggleFovVisibilityButton = Instance.new("TextButton")
     local FovTextBox = Instance.new("TextBox")
     local Title = Instance.new("TextLabel")
 
@@ -43,7 +45,7 @@ local function createGui()
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 300, 0, 300)
+    MainFrame.Size = UDim2.new(0, 300, 0, 350)
     MainFrame.Active = true
     MainFrame.Draggable = true
     MainFrame.Visible = false
@@ -51,8 +53,12 @@ local function createGui()
     LogoButton.Parent = ScreenGui
     LogoButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     LogoButton.Position = UDim2.new(0, 10, 0, 10)
-    LogoButton.Size = UDim2.new(0, 100, 0, 100)
+    LogoButton.Size = UDim2.new(0, 50, 0, 50) -- Tamanho reduzido
     LogoButton.Text = ""
+    LogoButton.BorderSizePixel = 0
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 25) -- Pontas arredondadas
+    UICorner.Parent = LogoButton
 
     Title.Parent = MainFrame
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -99,9 +105,18 @@ local function createGui()
     DecreaseFovButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     DecreaseFovButton.TextSize = 18
 
+    ToggleFovVisibilityButton.Parent = MainFrame
+    ToggleFovVisibilityButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    ToggleFovVisibilityButton.Position = UDim2.new(0, 50, 0, 220)
+    ToggleFovVisibilityButton.Size = UDim2.new(0, 200, 0, 50)
+    ToggleFovVisibilityButton.Font = Enum.Font.SourceSansBold
+    ToggleFovVisibilityButton.Text = "Toggle FOV Visibility"
+    ToggleFovVisibilityButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ToggleFovVisibilityButton.TextSize = 18
+
     FovTextBox.Parent = MainFrame
     FovTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    FovTextBox.Position = UDim2.new(0, 50, 0, 220)
+    FovTextBox.Position = UDim2.new(0, 50, 0, 280)
     FovTextBox.Size = UDim2.new(0, 200, 0, 30)
     FovTextBox.Font = Enum.Font.SourceSansBold
     FovTextBox.PlaceholderText = "Enter FOV"
@@ -133,62 +148,28 @@ local function createGui()
         fovCircle.Radius = aimbotFov
     end
 
+    local function toggleFovVisibility()
+        fovVisible = not fovVisible
+        fovCircle.Visible = fovVisible
+    end
+
     ToggleAimbotButton.MouseButton1Click:Connect(toggleAimbot)
     SetFovButton.MouseButton1Click:Connect(setFov)
     IncreaseFovButton.MouseButton1Click:Connect(increaseFov)
     DecreaseFovButton.MouseButton1Click:Connect(decreaseFov)
+    ToggleFovVisibilityButton.MouseButton1Click:Connect(toggleFovVisibility)
 
     -- Suporte a dispositivos móveis
     ToggleAimbotButton.TouchTap:Connect(toggleAimbot)
     SetFovButton.TouchTap:Connect(setFov)
     IncreaseFovButton.TouchTap:Connect(increaseFov)
     DecreaseFovButton.TouchTap:Connect(decreaseFov)
+    ToggleFovVisibilityButton.TouchTap:Connect(toggleFovVisibility)
 
     -- Função para abrir e fechar o painel
-    LogoButton.MouseButton1Click:Connect(function()
+    local function toggleMainFrame()
         MainFrame.Visible = not MainFrame.Visible
-    end)
-
-    -- Suporte a dispositivos móveis para o botão de logo
-    LogoButton.TouchTap:Connect(function()
-        MainFrame.Visible = not MainFrame.Visible
-    end)
-end
-
-local function getClosestPlayerToCursor()
-    local closestPlayer = nil
-    local shortestDistance = aimbotFov
-
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
-            local headPosition = player.Character.Head.Position
-            local headScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(headPosition)
-            local mouseLocation = UserInputService:GetMouseLocation()
-            local distance = (Vector2.new(headScreenPos.X, headScreenPos.Y) - mouseLocation).Magnitude
-
-            if distance < shortestDistance then
-                closestPlayer = player
-                shortestDistance = distance
-            end
-        end
     end
 
-    return closestPlayer
-end
-
-RunService.RenderStepped:Connect(function()
-    fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
-
-    if aimbotEnabled then
-        local target = getClosestPlayerToCursor()
-        if target and target.Character and target.Character:FindFirstChild("Head") then
-            local headPosition = target.Character.Head.Position
-            local aimAtPos = aimAtHead and headPosition or target.Character.HumanoidRootPart.Position
-            local camera = workspace.CurrentCamera
-            camera.CFrame = CFrame.new(camera.CFrame.Position, aimAtPos)
-        end
-    end
-end)
-
-createGui()
-print("Painel de controle criado.")
+    LogoButton.MouseButton1Click:Connect(toggleMainFrame)
+    LogoButton.TouchTap:Connect(toggleMainFrame)
