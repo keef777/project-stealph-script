@@ -10,6 +10,7 @@ local Drawing = Drawing or require("Drawing")
 
 local aimbotEnabled = false
 local espEnabled = true
+local aimAtHead = true -- Padrão para mirar na cabeça
 
 local function createESP(player)
     if player == LocalPlayer then return end
@@ -51,17 +52,18 @@ local function createGui()
     local LogoButton = Instance.new("TextButton")
     local ToggleAimbotButton = Instance.new("TextButton")
     local ToggleESPButton = Instance.new("TextButton")
+    local AimAtHeadButton = Instance.new("TextButton")
+    local AimAtTorsoButton = Instance.new("TextButton")
     local Title = Instance.new("TextLabel")
-    local ProjectAimLabel = Instance.new("TextLabel")
 
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 400, 0, 200)
-    MainFrame.BorderSizePixel = 2
-    MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
+    MainFrame.Size = UDim2.new(0, 450, 0, 350)
+    MainFrame.BorderSizePixel = 0
+    MainFrame.BackgroundTransparency = 0 -- Fundo preto
     MainFrame.Active = true
     MainFrame.Draggable = true
 
@@ -78,16 +80,6 @@ local function createGui()
     local UICornerLogo = Instance.new("UICorner")
     UICornerLogo.CornerRadius = UDim.new(0, 25)
     UICornerLogo.Parent = LogoButton
-
-    ProjectAimLabel.Parent = MainFrame
-    ProjectAimLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ProjectAimLabel.BackgroundTransparency = 1
-    ProjectAimLabel.Size = UDim2.new(1, 0, 0, 30)
-    ProjectAimLabel.Font = Enum.Font.GothamBold
-    ProjectAimLabel.Text = "Project Aim"
-    ProjectAimLabel.TextColor3 = Color3.fromRGB(170, 0, 255)
-    ProjectAimLabel.TextSize = 28
-    ProjectAimLabel.Position = UDim2.new(0, 10, 0, 10)
 
         Title.Parent = MainFrame
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -122,18 +114,58 @@ local function createGui()
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
 
+    AimAtHeadButton.Parent = MainFrame
+    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 180)
+    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtHeadButton.Font = Enum.Font.SourceSansBold
+    AimAtHeadButton.Text = "Aim at Head"
+    AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtHeadButton.TextSize = 18
+    local UICornerAimAtHeadButton = Instance.new("UICorner")
+    UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtHeadButton.Parent = AimAtHeadButton
+
+    AimAtTorsoButton.Parent = MainFrame
+    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 180)
+    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtTorsoButton.Font = Enum.Font.SourceSansBold
+    AimAtTorsoButton.Text = "Aim at Torso"
+    AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtTorsoButton.TextSize = 18
+    local UICornerAimAtTorsoButton = Instance.new("UICorner")
+    UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
+
         -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
     end
 
+    local function setAimAtHead()
+        aimAtHead = true
+        AimAtHeadButton.Text = "Aim at Head (selected)"
+        AimAtTorsoButton.Text = "Aim at Torso"
+    end
+
+    local function setAimAtTorso()
+        aimAtHead = false
+        AimAtTorsoButton.Text = "Aim at Torso (selected)"
+        AimAtHeadButton.Text = "Aim at Head"
+    end
+
     ToggleAimbotButton.MouseButton1Click:Connect(toggleAimbot)
     ToggleESPButton.MouseButton1Click:Connect(toggleESP)
+    AimAtHeadButton.MouseButton1Click:Connect(setAimAtHead)
+    AimAtTorsoButton.MouseButton1Click:Connect(setAimAtTorso)
 
     -- Suporte a dispositivos móveis
     ToggleAimbotButton.TouchTap:Connect(toggleAimbot)
     ToggleESPButton.TouchTap:Connect(toggleESP)
+    AimAtHeadButton.TouchTap:Connect(setAimAtHead)
+    AimAtTorsoButton.TouchTap:Connect(setAimAtTorso)
 
     -- Função para abrir e fechar o painel
     local function toggleMainFrame()
@@ -149,6 +181,30 @@ local function getClosestPlayerToCursor()
     local shortestDistance = math.huge
 
     for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local targetPart = player.Character:FindFirstChild("Head")
+            if not aimAtHead then
+                targetPart = player.Character:FindFirstChild("UpperTorso")
+            end
+            
+            if targetPart then
+                local targetPosition = targetPart.Position
+                local targetScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(targetPosition)
+                local mouseLocation = UserInputService:GetMouseLocation()
+                local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mouseLocation).Magnitude
+
+                if distance < shortestDistance then
+                    closestPlayer = player
+                    shortestDistance = distance
+                end
+            end
+        end
+    end
+
+    return closestPlayer
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
             local headPosition = player.Character.Head.Position
             local headScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(headPosition)
@@ -168,10 +224,16 @@ end
 RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
         local target = getClosestPlayerToCursor()
-        if target and target.Character and target.Character:FindFirstChild("Head") then
-            local headPosition = target.Character.Head.Position
+        if target and target.Character then
+            local aimPosition
+            if aimAtHead then
+                aimPosition = target.Character.Head.Position
+            else
+                aimPosition = target.Character.UpperTorso.Position
+            end
+
             local camera = workspace.CurrentCamera
-            camera.CFrame = CFrame.new(camera.CFrame.Position, headPosition)
+            camera.CFrame = CFrame.new(camera.CFrame.Position, aimPosition)
             wait(5) -- Gruda no mesmo player por 5 segundos
         end
     end
