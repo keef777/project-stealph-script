@@ -23,7 +23,7 @@ fovCircle.Color = Color3.fromRGB(255, 0, 0)
 fovCircle.Filled = false -- Deixa a parte interna do círculo invisível
 fovCircle.Position = workspace.CurrentCamera.ViewportSize / 2
 
-local gameId = 1234567890 -- Substitua pelo ID real do jogo "Foguete PvP"
+local gameId = 84065576744468 -- Substitua pelo ID real do jogo "Foguete PvP"
 if game.PlaceId ~= gameId then
     print("Jogo não corresponde ao ID especificado.")
     return
