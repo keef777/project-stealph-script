@@ -272,7 +272,7 @@ local function createMoreFunctionsGui()
 
     -- Função para ativar /revistar no Mini City
     RevistarButton.MouseButton1Click:Connect(function()
-        if game.PlaceId == 4766797229 then -- Substitua pelo PlaceId do jogo Mini City
+        if game.PlaceId == 9417205094 then -- Substitua pelo PlaceId do jogo Mini City
             game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/revistar", "All")
         end
     end)
