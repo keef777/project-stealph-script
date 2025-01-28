@@ -81,88 +81,64 @@ local function createGui()
     UICornerLogo.CornerRadius = UDim.new(0, 25)
     UICornerLogo.Parent = LogoButton
 
-        Title.Parent = MainFrame
+    Title.Parent = MainFrame
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Title.BackgroundTransparency = 1
-    Title.Size = UDim2.new(1, 0, 0, 50)
-    Title.Font = Enum.Font.SourceSansBold
+    Title.Size = UDim2.new(1, 0, 0, 60)
+    Title.Font = Enum.Font.GothamBlack -- Fonte mais grossa possível
     Title.Text = "Project Aim"
     Title.TextColor3 = Color3.fromRGB(170, 0, 255)
-    Title.TextSize = 24
+    Title.TextSize = 36
 
-    ToggleAimbotButton.Parent = MainFrame
+        ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 60)
-    ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 50)
+    ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 80)
+    ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Aimbot"
     ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    ToggleAimbotButton.TextSize = 18
+    ToggleAimbotButton.TextSize = 24
     local UICornerAimbotButton = Instance.new("UICorner")
     UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
     UICornerAimbotButton.Parent = ToggleAimbotButton
 
     ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleESPButton.Position = UDim2.new(0, 20, 0, 120)
-    ToggleESPButton.Size = UDim2.new(0, 350, 0, 50)
+    ToggleESPButton.Position = UDim2.new(0, 20, 0, 150)
+    ToggleESPButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
-    ToggleESPButton.Text = "Esp"
+    ToggleESPButton.Text = "ESP"
     ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    ToggleESPButton.TextSize = 18
+    ToggleESPButton.TextSize = 24
     local UICornerESPButton = Instance.new("UICorner")
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
 
     AimAtHeadButton.Parent = MainFrame
     AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 180)
-    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 220)
+    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtHeadButton.Font = Enum.Font.SourceSansBold
     AimAtHeadButton.Text = "Aim In Head"
     AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimAtHeadButton.TextSize = 18
+    AimAtHeadButton.TextSize = 24
     local UICornerAimAtHeadButton = Instance.new("UICorner")
     UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtHeadButton.Parent = AimAtHeadButton
 
     AimAtTorsoButton.Parent = MainFrame
     AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 180)
-    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 50)
+    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 220)
+    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtTorsoButton.Font = Enum.Font.SourceSansBold
     AimAtTorsoButton.Text = "Aim In Torso"
     AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimAtTorsoButton.TextSize = 18
+    AimAtTorsoButton.TextSize = 24
     local UICornerAimAtTorsoButton = Instance.new("UICorner")
     UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
-        AimAtHeadButton.Parent = MainFrame
-    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 180)
-    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 50)
-    AimAtHeadButton.Font = Enum.Font.SourceSansBold
-    AimAtHeadButton.Text = "Aim In Head"
-    AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimAtHeadButton.TextSize = 18
-    local UICornerAimAtHeadButton = Instance.new("UICorner")
-    UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
-    UICornerAimAtHeadButton.Parent = AimAtHeadButton
-
-    AimAtTorsoButton.Parent = MainFrame
-    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 180)
-    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 50)
-    AimAtTorsoButton.Font = Enum.Font.SourceSansBold
-    AimAtTorsoButton.Text = "Aim In Torso"
-    AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimAtTorsoButton.TextSize = 18
-    local UICornerAimAtTorsoButton = Instance.new("UICorner")
-    UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
-    UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
-
-    -- Funções para os botões
+        -- Funções para os botões
     local function toggleAimbot()
         aimbotEnabled = not aimbotEnabled
         ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
@@ -170,7 +146,7 @@ local function createGui()
 
     local function setAimAtHead()
         aimAtHead = true
-        AimAtHeadButton.Text = "Aim Im Head (selected)"
+        AimAtHeadButton.Text = "Aim In Head (selected)"
         AimAtTorsoButton.Text = "Aim In Torso"
     end
 
@@ -206,11 +182,7 @@ local function getClosestPlayerToCursor()
 
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character then
-            local targetPart = player.Character:FindFirstChild("Head")
-            if not aimAtHead then
-                targetPart = player.Character:FindFirstChild("UpperTorso")
-            end
-            
+            local targetPart = aimAtHead and player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("UpperTorso")
             if targetPart then
                 local targetPosition = targetPart.Position
                 local targetScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(targetPosition)
@@ -241,7 +213,7 @@ RunService.RenderStepped:Connect(function()
 
             local camera = workspace.CurrentCamera
             camera.CFrame = CFrame.new(camera.CFrame.Position, aimPosition)
-            wait(10) -- Gruda no mesmo player por 5 segundos
+            wait(5) -- Gruda no mesmo player por 5 segundos
         end
     end
 end)
