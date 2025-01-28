@@ -13,7 +13,7 @@ local espEnabled = true
 local aimAtHead = true -- Padrão para mirar na cabeça
 
 local function createESP(player)
-    if player == LocalPlayer then return end
+    if player == LocalPlayer então return end
     local highlight = Instance.new("Highlight")
     highlight.Adornee = player.Character
     highlight.FillColor = Color3.new(1, 0, 0)
@@ -26,7 +26,7 @@ end
 local function toggleESP()
     espEnabled = not espEnabled
     for _, player in pairs(Players:GetPlayers()) do
-        if player.Character and player.Character:FindFirstChild("Highlight") then
+        if player.Character and player.Character:FindFirstChild("Highlight") então
             player.Character.Highlight.Enabled = espEnabled
         end
     end
@@ -34,14 +34,14 @@ end
 
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
-        if espEnabled then
+        if espEnabled então
             createESP(player)
         end
     end)
 end)
 
 for _, player in pairs(Players:GetPlayers()) do
-    if player.Character then
+    if player.Character então
         createESP(player)
     end
 end
@@ -176,6 +176,8 @@ local function createGui()
     LogoButton.TouchTap:Connect(toggleMainFrame)
 end
 
+local targetLock = nil -- Variável para armazenar o alvo atual
+
 local function getClosestPlayerToCursor()
     local closestPlayer = nil
     local shortestDistance = math.huge
@@ -202,18 +204,24 @@ end
 
 RunService.RenderStepped:Connect(function()
     if aimbotEnabled then
-        local target = getClosestPlayerToCursor()
-        if target and target.Character then
+        if targetLock and (not targetLock.Character or not targetLock.Character:FindFirstChild("Head") or not targetLock.Character:FindFirstChild("UpperTorso")) then
+            targetLock = nil
+        end
+
+        if not targetLock then
+            targetLock = getClosestPlayerToCursor()
+        end
+
+        if targetLock and targetLock.Character then
             local aimPosition
             if aimAtHead then
-                aimPosition = target.Character.Head.Position
+                aimPosition = targetLock.Character.Head.Position
             else
-                aimPosition = target.Character.UpperTorso.Position
+                aimPosition = targetLock.Character.UpperTorso.Position
             end
 
             local camera = workspace.CurrentCamera
             camera.CFrame = CFrame.new(camera.CFrame.Position, aimPosition)
-            wait(15) -- Gruda no mesmo player por 5 segundos
         end
     end
 end)
