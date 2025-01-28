@@ -81,7 +81,7 @@ local function createGui()
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     Title.TextSize = 24
 
-    ToggleAimbotButton.Parent = MainFrame
+        ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     ToggleAimbotButton.Position = UDim2.new(0, 50, 0, 60)
     ToggleAimbotButton.Size = UDim2.new(0, 200, 0, 50)
@@ -112,7 +112,7 @@ local function createGui()
     ToggleAimbotButton.TouchTap:Connect(toggleAimbot)
     ToggleESPButton.TouchTap:Connect(toggleESP)
 
-    -- Função para abrir e fechar o painel
+        -- Função para abrir e fechar o painel
     local function toggleMainFrame()
         MainFrame.Visible = not MainFrame.Visible
     end
