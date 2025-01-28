@@ -49,20 +49,19 @@ end
 local function createGui()
     local ScreenGui = Instance.new("ScreenGui")
     local MainFrame = Instance.new("Frame")
-    local HomeButton = Instance.new("TextButton")
-    local AimbotButton = Instance.new("TextButton")
-    local HomeFrame = Instance.new("Frame")
-    local AimbotFrame = Instance.new("Frame")
     local LogoButton = Instance.new("TextButton")
+    local ToggleAimbotButton = Instance.new("TextButton")
+    local ToggleESPButton = Instance.new("TextButton")
+    local AimAtHeadButton = Instance.new("TextButton")
+    local AimAtTorsoButton = Instance.new("TextButton")
     local Title = Instance.new("TextLabel")
-    local Credits = Instance.new("TextLabel")
 
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 400, 0, 350)
+    MainFrame.Size = UDim2.new(0, 400, 0, 300)
     MainFrame.BorderSizePixel = 2
     MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
     MainFrame.Active = true
@@ -91,69 +90,10 @@ local function createGui()
     Title.TextColor3 = Color3.fromRGB(170, 0, 255)
     Title.TextSize = 36
 
-        HomeButton.Parent = MainFrame
-    HomeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    HomeButton.Position = UDim2.new(0, 20, 0, 80)
-    HomeButton.Size = UDim2.new(0, 160, 0, 60)
-    HomeButton.Font = Enum.Font.SourceSansBold
-    HomeButton.Text = "Home"
-    HomeButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    HomeButton.TextSize = 24
-    local UICornerHomeButton = Instance.new("UICorner")
-    UICornerHomeButton.CornerRadius = UDim.new(0, 10)
-    UICornerHomeButton.Parent = HomeButton
-
-    AimbotButton.Parent = MainFrame
-    AimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimbotButton.Position = UDim2.new(0, 210, 0, 80)
-    AimbotButton.Size = UDim2.new(0, 160, 0, 60)
-    AimbotButton.Font = Enum.Font.SourceSansBold
-    AimbotButton.Text = "Aimbot"
-    AimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    AimbotButton.TextSize = 24
-    local UICornerAimbotButton = Instance.new("UICorner")
-    UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
-    UICornerAimbotButton.Parent = AimbotButton
-
-    HomeFrame.Parent = MainFrame
-    HomeFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    HomeFrame.Position = UDim2.new(0, 20, 0, 150)
-    HomeFrame.Size = UDim2.new(0, 350, 0, 180)
-    HomeFrame.Visible = true
-    local UICornerHomeFrame = Instance.new("UICorner")
-    UICornerHomeFrame.CornerRadius = UDim.new(0, 10)
-    UICornerHomeFrame.Parent = HomeFrame
-
-    AimbotFrame.Parent = MainFrame
-    AimbotFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    AimbotFrame.Position = UDim2.new(0, 20, 0, 150)
-    AimbotFrame.Size = UDim2.new(0, 350, 0, 180)
-    AimbotFrame.Visible = false
-    local UICornerAimbotFrame = Instance.new("UICorner")
-    UICornerAimbotFrame.CornerRadius = UDim.new(0, 10)
-    UICornerAimbotFrame.Parent = AimbotFrame
-
-        Credits.Parent = HomeFrame
-    Credits.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    Credits.Position = UDim2.new(0, 10, 0, 10)
-    Credits.Size = UDim2.new(0, 330, 0, 160)
-    Credits.Font = Enum.Font.SourceSansBold
-    Credits.Text = "Script criado por: Keef"
-    Credits.TextColor3 = Color3.fromRGB(170, 0, 255)
-    Credits.TextSize = 24
-    local UICornerCredits = Instance.new("UICorner")
-    UICornerCredits.CornerRadius = UDim.new(0, 10)
-    UICornerCredits.Parent = Credits
-
-    local ToggleAimbotButton = Instance.new("TextButton")
-    local ToggleESPButton = Instance.new("TextButton")
-    local AimAtHeadButton = Instance.new("TextButton")
-    local AimAtTorsoButton = Instance.new("TextButton")
-
-    ToggleAimbotButton.Parent = AimbotFrame
+        ToggleAimbotButton.Parent = MainFrame
     ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 10)
-    ToggleAimbotButton.Size = UDim2.new(0, 310, 0, 40)
+    ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 80)
+    ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Aimbot"
     ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -162,10 +102,10 @@ local function createGui()
     UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
     UICornerAimbotButton.Parent = ToggleAimbotButton
 
-    ToggleESPButton.Parent = AimbotFrame
+    ToggleESPButton.Parent = MainFrame
     ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    ToggleESPButton.Position = UDim2.new(0, 20, 0, 60)
-    ToggleESPButton.Size = UDim2.new(0, 310, 0, 40)
+    ToggleESPButton.Position = UDim2.new(0, 20, 0, 150)
+    ToggleESPButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
     ToggleESPButton.Text = "ESP"
     ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -174,10 +114,10 @@ local function createGui()
     UICornerESPButton.CornerRadius = UDim.new(0, 10)
     UICornerESPButton.Parent = ToggleESPButton
 
-    AimAtHeadButton.Parent = AimbotFrame
+    AimAtHeadButton.Parent = MainFrame
     AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 110)
-    AimAtHeadButton.Size = UDim2.new(0, 150, 0, 40)
+    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 220)
+    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtHeadButton.Font = Enum.Font.SourceSansBold
     AimAtHeadButton.Text = "Aim In Head"
     AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -186,10 +126,10 @@ local function createGui()
     UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtHeadButton.Parent = AimAtHeadButton
 
-    AimAtTorsoButton.Parent = AimbotFrame
+    AimAtTorsoButton.Parent = MainFrame
     AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    AimAtTorsoButton.Position = UDim2.new(0, 180, 0, 110)
-    AimAtTorsoButton.Size = UDim2.new(0, 150, 0, 40)
+    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 220)
+    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtTorsoButton.Font = Enum.Font.SourceSansBold
     AimAtTorsoButton.Text = "Aim In Torso"
     AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
@@ -215,16 +155,6 @@ local function createGui()
         AimAtTorsoButton.Text = "Aim In Torso (selected)"
         AimAtHeadButton.Text = "Aim In Head"
     end
-
-    HomeButton.MouseButton1Click:Connect(function()
-        HomeFrame.Visible = true
-        AimbotFrame.Visible = false
-    end)
-
-    AimbotButton.MouseButton1Click:Connect(function()
-        HomeFrame.Visible = false
-        AimbotFrame.Visible = true
-    end)
 
     ToggleAimbotButton.MouseButton1Click:Connect(toggleAimbot)
     ToggleESPButton.MouseButton1Click:Connect(toggleESP)
