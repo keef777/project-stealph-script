@@ -6,14 +6,14 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 -- Certifique-se de ter a biblioteca Drawing
-local Drawing = Drawing or require("Drawing")
+local Drawing = Drawing ou require("Drawing")
 
 local aimbotEnabled = false
 local espEnabled = true
 local aimAtHead = true -- Padrão para mirar na cabeça
 
 local function createESP(player)
-    if player == LocalPlayer then return end
+    if player == LocalPlayer então return end
     local highlight = Instance.new("Highlight")
     highlight.Adornee = player.Character
     highlight.FillColor = Color3.new(1, 0, 0)
@@ -26,7 +26,7 @@ end
 local function toggleESP()
     espEnabled = not espEnabled
     for _, player in pairs(Players:GetPlayers()) do
-        if player.Character and player.Character:FindFirstChild("Highlight") then
+        if player.Character and player.Character:FindFirstChild("Highlight") então
             player.Character.Highlight.Enabled = espEnabled
         end
     end
@@ -34,7 +34,7 @@ end
 
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
-        if espEnabled then
+        if espEnabled então
             createESP(player)
         end
     end)
@@ -139,7 +139,70 @@ local function createGui()
     UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
-        AimAtTorsoButton.MouseButton1Click:Connect(setAimAtTorso)
+        MoreFunctionsButton.Parent = MainFrame
+    MoreFunctionsButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    MoreFunctionsButton.Position = UDim2.new(0, 20, 0, 290)
+    MoreFunctionsButton.Size = UDim2.new(0, 350, 0, 60)
+    MoreFunctionsButton.Font = Enum.Font.SourceSansBold
+    MoreFunctionsButton.Text = "More Functions"
+    MoreFunctionsButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    MoreFunctionsButton.TextSize = 24
+    local UICornerMoreFunctionsButton = Instance.new("UICorner")
+    UICornerMoreFunctionsButton.CornerRadius = UDim.new(0, 10)
+    UICornerMoreFunctionsButton.Parent = MoreFunctionsButton
+
+    -- Funções para os botões
+    local function toggleAimbot()
+        aimbotEnabled = not aimbotEnabled
+        ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
+    end
+
+    local function setAimAtHead()
+        aimAtHead = true
+        AimAtHeadButton.Text = "Aim In Head (selected)"
+        AimAtTorsoButton.Text = "Aim In Torso"
+    end
+
+    local function setAimAtTorso()
+        aimAtHead = false
+        AimAtTorsoButton.Text = "Aim In Torso (selected)"
+        AimAtHeadButton.Text = "Aim In Head"
+    end
+
+        MoreFunctionsButton.Parent = MainFrame
+    MoreFunctionsButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    MoreFunctionsButton.Position = UDim2.new(0, 20, 0, 290)
+    MoreFunctionsButton.Size = UDim2.new(0, 350, 0, 60)
+    MoreFunctionsButton.Font = Enum.Font.SourceSansBold
+    MoreFunctionsButton.Text = "More Functions"
+    MoreFunctionsButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    MoreFunctionsButton.TextSize = 24
+    local UICornerMoreFunctionsButton = Instance.new("UICorner")
+    UICornerMoreFunctionsButton.CornerRadius = UDim.new(0, 10)
+    UICornerMoreFunctionsButton.Parent = MoreFunctionsButton
+
+    -- Funções para os botões
+    local function toggleAimbot()
+        aimbotEnabled = not aimbotEnabled
+        ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
+    end
+
+    local function setAimAtHead()
+        aimAtHead = true
+        AimAtHeadButton.Text = "Aim In Head (selected)"
+        AimAtTorsoButton.Text = "Aim In Torso"
+    end
+
+    local function setAimAtTorso()
+        aimAtHead = false
+        AimAtTorsoButton.Text = "Aim In Torso (selected)"
+        AimAtHeadButton.Text = "Aim In Head"
+    end
+
+    ToggleAimbotButton.MouseButton1Click:Connect(toggleAimbot)
+    ToggleESPButton.MouseButton1Click:Connect(toggleESP)
+    AimAtHeadButton.MouseButton1Click:Connect(setAimAtHead)
+    AimAtTorsoButton.MouseButton1Click:Connect(setAimAtTorso)
     MoreFunctionsButton.MouseButton1Click:Connect(function()
         MainFrame.Visible = false
         createMoreFunctionsGui()
@@ -177,7 +240,7 @@ local function getClosestPlayerToCursor()
                 local mouseLocation = UserInputService:GetMouseLocation()
                 local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mouseLocation).Magnitude
 
-                if distance < shortestDistance then
+                if distance < shortestDistance então
                     closestPlayer = player
                     shortestDistance = distance
                 end
@@ -189,11 +252,11 @@ local function getClosestPlayerToCursor()
 end
 
 RunService.RenderStepped:Connect(function()
-    if aimbotEnabled then
+    if aimbotEnabled então
         local target = getClosestPlayerToCursor()
-        if target and target.Character then
+        if target and target.Character então
             local aimPosition
-            if aimAtHead then
+            if aimAtHead então
                 aimPosition = target.Character.Head.Position
             else
                 aimPosition = target.Character.UpperTorso.Position
@@ -213,7 +276,7 @@ local function createMoreFunctionsGui()
     local MoreFunctionsGui = Instance.new("ScreenGui")
     local MoreFunctionsFrame = Instance.new("Frame")
     local BackButton = Instance.new("TextButton")
-    local RevistarButton = Instance.new("TextButton")
+    local CarListFrame = Instance.new("ScrollingFrame")
     local TitleMoreFunctions = Instance.new("TextLabel")
 
     MoreFunctionsGui.Parent = game.CoreGui
@@ -221,7 +284,7 @@ local function createMoreFunctionsGui()
     MoreFunctionsFrame.Parent = MoreFunctionsGui
     MoreFunctionsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MoreFunctionsFrame.Position = UDim2.new(0, 50, 0, 100)
-    MoreFunctionsFrame.Size = UDim2.new(0, 400, 0, 300)
+    MoreFunctionsFrame.Size = UDim2.new(0, 400, 0, 400)
     MoreFunctionsFrame.BorderSizePixel = 2
     MoreFunctionsFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
     MoreFunctionsFrame.Active = true
@@ -233,7 +296,7 @@ local function createMoreFunctionsGui()
 
     BackButton.Parent = MoreFunctionsFrame
     BackButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    BackButton.Position = UDim2.new(0, 20, 0, 220)
+    BackButton.Position = UDim2.new(0, 20, 0, 320)
     BackButton.Size = UDim2.new(0, 350, 0, 60)
     BackButton.Font = Enum.Font.SourceSansBold
     BackButton.Text = "Back"
@@ -243,17 +306,12 @@ local function createMoreFunctionsGui()
     UICornerBackButton.CornerRadius = UDim.new(0, 10)
     UICornerBackButton.Parent = BackButton
 
-    RevistarButton.Parent = MoreFunctionsFrame
-    RevistarButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    RevistarButton.Position = UDim2.new(0, 20, 0, 80)
-    RevistarButton.Size = UDim2.new(0, 350, 0, 60)
-    RevistarButton.Font = Enum.Font.SourceSansBold
-    RevistarButton.Text = "Revistar (Mini City)"
-    RevistarButton.TextColor3 = Color3.fromRGB(170, 0, 255)
-    RevistarButton.TextSize = 24
-    local UICornerRevistarButton = Instance.new("UICorner")
-    UICornerRevistarButton.CornerRadius = UDim.new(0, 10)
-    UICornerRevistarButton.Parent = RevistarButton
+    CarListFrame.Parent = MoreFunctionsFrame
+    CarListFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    CarListFrame.Position = UDim2.new(0, 20, 0, 80)
+    CarListFrame.Size = UDim2.new(0, 350, 0, 220)
+    CarListFrame.CanvasSize = UDim2.new(0, 0, 10, 0)
+    CarListFrame.ScrollBarThickness = 10
 
     TitleMoreFunctions.Parent = MoreFunctionsFrame
     TitleMoreFunctions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -270,10 +328,31 @@ local function createMoreFunctionsGui()
         MainFrame.Visible = true
     end)
 
-    -- Função para ativar /revistar no Mini City
-    RevistarButton.MouseButton1Click:Connect(function()
-        if game.PlaceId == 9417205094 then -- Substitua pelo PlaceId do jogo Mini City
-            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/revistar", "All")
+    -- Função para listar carros e adicionar botão para ver localização
+    local function listCars()
+        local cars = game.Workspace:FindPartsInRegion3WithWhiteList(
+            Region3.new(Vector3.new(-1000, -1000, -1000), Vector3.new(1000, 1000, 1000)),
+            {game.Workspace.Vehicles},
+            1000
+        )
+        for _, car in ipairs(cars) do
+            if car:FindFirstChild("Seat") and not car.Seat.Occupant then
+                local carButton = Instance.new("TextButton")
+                carButton.Parent = CarListFrame
+                carButton.Size = UDim2.new(1, 0, 0, 40)
+                carButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+                carButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+                carButton.Text = car.Name .. " - See Location"
+                carButton.MouseButton1Click:Connect(function()
+                    local camera = workspace.CurrentCamera
+                    camera.CFrame = CFrame.new(camera.CFrame.Position, car.Position)
+                end)
+            end
         end
-    end)
+    end
+
+    -- Verificar se estamos no jogo Ilha Bela Roleplay e listar carros
+    if game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name == "Ilha Bela Roleplay" then
+        listCars()
+    end
 end
