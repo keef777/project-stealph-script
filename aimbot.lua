@@ -41,7 +41,7 @@ Players.PlayerAdded:Connect(function(player)
 end)
 
 for _, player in pairs(Players:GetPlayers()) do
-    if player.Character then
+    if player.Character então
         createESP(player)
     end
 end
@@ -55,13 +55,14 @@ local function createGui()
     local AimAtHeadButton = Instance.new("TextButton")
     local AimAtTorsoButton = Instance.new("TextButton")
     local Title = Instance.new("TextLabel")
+    local MoreFunctionsButton = Instance.new("TextButton")
 
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 400, 0, 300)
+    MainFrame.Size = UDim2.new(0, 400, 0, 350)
     MainFrame.BorderSizePixel = 2
     MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
     MainFrame.Active = true
@@ -138,34 +139,21 @@ local function createGui()
     UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
-        -- Funções para os botões
-    local function toggleAimbot()
-        aimbotEnabled = not aimbotEnabled
-        ToggleAimbotButton.Text = aimbotEnabled and "Aimbot: ON" or "Aimbot: OFF"
-    end
-
-    local function setAimAtHead()
-        aimAtHead = true
-        AimAtHeadButton.Text = "Aim In Head (selected)"
-        AimAtTorsoButton.Text = "Aim In Torso"
-    end
-
-    local function setAimAtTorso()
-        aimAtHead = false
-        AimAtTorsoButton.Text = "Aim In Torso (selected)"
-        AimAtHeadButton.Text = "Aim In Head"
-    end
-
-    ToggleAimbotButton.MouseButton1Click:Connect(toggleAimbot)
-    ToggleESPButton.MouseButton1Click:Connect(toggleESP)
-    AimAtHeadButton.MouseButton1Click:Connect(setAimAtHead)
-    AimAtTorsoButton.MouseButton1Click:Connect(setAimAtTorso)
+        AimAtTorsoButton.MouseButton1Click:Connect(setAimAtTorso)
+    MoreFunctionsButton.MouseButton1Click:Connect(function()
+        MainFrame.Visible = false
+        createMoreFunctionsGui()
+    end)
 
     -- Suporte a dispositivos móveis
     ToggleAimbotButton.TouchTap:Connect(toggleAimbot)
     ToggleESPButton.TouchTap:Connect(toggleESP)
     AimAtHeadButton.TouchTap:Connect(setAimAtHead)
     AimAtTorsoButton.TouchTap:Connect(setAimAtTorso)
+    MoreFunctionsButton.TouchTap:Connect(function()
+        MainFrame.Visible = false
+        createMoreFunctionsGui()
+    end)
 
     -- Função para abrir e fechar o painel
     local function toggleMainFrame()
@@ -220,3 +208,72 @@ end)
 
 createGui()
 print("Painel de controle criado.")
+
+local function createMoreFunctionsGui()
+    local MoreFunctionsGui = Instance.new("ScreenGui")
+    local MoreFunctionsFrame = Instance.new("Frame")
+    local BackButton = Instance.new("TextButton")
+    local RevistarButton = Instance.new("TextButton")
+    local TitleMoreFunctions = Instance.new("TextLabel")
+
+    MoreFunctionsGui.Parent = game.CoreGui
+
+    MoreFunctionsFrame.Parent = MoreFunctionsGui
+    MoreFunctionsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    MoreFunctionsFrame.Position = UDim2.new(0, 50, 0, 100)
+    MoreFunctionsFrame.Size = UDim2.new(0, 400, 0, 300)
+    MoreFunctionsFrame.BorderSizePixel = 2
+    MoreFunctionsFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
+    MoreFunctionsFrame.Active = true
+    MoreFunctionsFrame.Draggable = true
+
+    local UICornerMoreFunctionsFrame = Instance.new("UICorner")
+    UICornerMoreFunctionsFrame.CornerRadius = UDim.new(0, 10)
+    UICornerMoreFunctionsFrame.Parent = MoreFunctionsFrame
+
+    BackButton.Parent = MoreFunctionsFrame
+    BackButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    BackButton.Position = UDim2.new(0, 20, 0, 220)
+    BackButton.Size = UDim2.new(0, 350, 0, 60)
+    BackButton.Font = Enum.Font.SourceSansBold
+    BackButton.Text = "Back"
+    BackButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    BackButton.TextSize = 24
+    local UICornerBackButton = Instance.new("UICorner")
+    UICornerBackButton.CornerRadius = UDim.new(0, 10)
+    UICornerBackButton.Parent = BackButton
+
+    RevistarButton.Parent = MoreFunctionsFrame
+    RevistarButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    RevistarButton.Position = UDim2.new(0, 20, 0, 80)
+    RevistarButton.Size = UDim2.new(0, 350, 0, 60)
+    RevistarButton.Font = Enum.Font.SourceSansBold
+    RevistarButton.Text = "Revistar (Mini City)"
+    RevistarButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    RevistarButton.TextSize = 24
+    local UICornerRevistarButton = Instance.new("UICorner")
+    UICornerRevistarButton.CornerRadius = UDim.new(0, 10)
+    UICornerRevistarButton.Parent = RevistarButton
+
+    TitleMoreFunctions.Parent = MoreFunctionsFrame
+    TitleMoreFunctions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TitleMoreFunctions.BackgroundTransparency = 1
+    TitleMoreFunctions.Size = UDim2.new(1, 0, 0, 60)
+    TitleMoreFunctions.Font = Enum.Font.GothamBlack -- Fonte mais grossa possível
+    TitleMoreFunctions.Text = "More Functions"
+    TitleMoreFunctions.TextColor3 = Color3.fromRGB(170, 0, 255)
+    TitleMoreFunctions.TextSize = 36
+
+    -- Função para voltar ao painel principal
+    BackButton.MouseButton1Click:Connect(function()
+        MoreFunctionsGui:Destroy()
+        MainFrame.Visible = true
+    end)
+
+    -- Função para ativar /revistar no Mini City
+    RevistarButton.MouseButton1Click:Connect(function()
+        if game.PlaceId == 1234567890 then -- Substitua pelo PlaceId do jogo Mini City
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/revistar", "All")
+        end
+    end)
+end
