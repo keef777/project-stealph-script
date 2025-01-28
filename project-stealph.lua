@@ -213,7 +213,7 @@ RunService.RenderStepped:Connect(function()
 
             local camera = workspace.CurrentCamera
             camera.CFrame = CFrame.new(camera.CFrame.Position, aimPosition)
-            wait(5) -- Gruda no mesmo player por 5 segundos
+            wait(15) -- Gruda no mesmo player por 5 segundos
         end
     end
 end)
