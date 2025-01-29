@@ -59,7 +59,7 @@ local function createGui()
     ScreenGui.Parent = game.CoreGui
 
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Cor branca
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
     MainFrame.Size = UDim2.new(0, 400, 0, 300)
     MainFrame.BorderSizePixel = 2
@@ -91,7 +91,7 @@ local function createGui()
     Title.TextSize = 36
 
         ToggleAimbotButton.Parent = MainFrame
-    ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
     ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 80)
     ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
@@ -103,11 +103,11 @@ local function createGui()
     UICornerAimbotButton.Parent = ToggleAimbotButton
 
     ToggleESPButton.Parent = MainFrame
-    ToggleESPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    ToggleESPButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
     ToggleESPButton.Position = UDim2.new(0, 20, 0, 150)
     ToggleESPButton.Size = UDim2.new(0, 350, 0, 60)
     ToggleESPButton.Font = Enum.Font.SourceSansBold
-    ToggleESPButton.Text = "ESP"
+    ToggleESPButton.Text = "Esp"
     ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
     ToggleESPButton.TextSize = 24
     local UICornerESPButton = Instance.new("UICorner")
@@ -115,11 +115,11 @@ local function createGui()
     UICornerESPButton.Parent = ToggleESPButton
 
     AimAtHeadButton.Parent = MainFrame
-    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
     AimAtHeadButton.Position = UDim2.new(0, 20, 0, 220)
     AimAtHeadButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtHeadButton.Font = Enum.Font.SourceSansBold
-    AimAtHeadButton.Text = "Aim In Head"
+    AimAtHeadButton.Text = "Aim At Head"
     AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
     AimAtHeadButton.TextSize = 24
     local UICornerAimAtHeadButton = Instance.new("UICorner")
@@ -127,11 +127,11 @@ local function createGui()
     UICornerAimAtHeadButton.Parent = AimAtHeadButton
 
     AimAtTorsoButton.Parent = MainFrame
-    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
     AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 220)
     AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 60)
     AimAtTorsoButton.Font = Enum.Font.SourceSansBold
-    AimAtTorsoButton.Text = "Aim In Torso"
+    AimAtTorsoButton.Text = "Aim At Torso"
     AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
     AimAtTorsoButton.TextSize = 24
     local UICornerAimAtTorsoButton = Instance.new("UICorner")
@@ -176,45 +176,19 @@ local function createGui()
     LogoButton.TouchTap:Connect(toggleMainFrame)
 end
 
-local targetLock = nil -- Variável para armazenar o alvo atual
-
-local function getClosestPlayerToCursor()
-    local closestPlayer = nil
-    local shortestDistance = math.huge
-
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            local targetPart = aimAtHead and player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("UpperTorso")
-            if targetPart then
-                local targetPosition = targetPart.Position
-                local targetScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(targetPosition)
-                local mouseLocation = UserInputService:GetMouseLocation()
-                local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mouseLocation).Magnitude
-
-                if distance < shortestDistance then
-                    closestPlayer = player
-                    shortestDistance = distance
-                end
-            end
-        end
-    end
-
-    return closestPlayer
-end
-
 RunService.RenderStepped:Connect(function()
-    if aimbotEnabled then
-        if targetLock and (not targetLock.Character or not targetLock.Character:FindFirstChild("Head") or not targetLock.Character:FindFirstChild("UpperTorso")) then
+    if aimbotEnabled então
+        if targetLock and (not targetLock.Character or not targetLock.Character:FindFirstChild("Head") or not targetLock.Character:FindFirstChild("UpperTorso")) então
             targetLock = nil
         end
 
-        if not targetLock then
+        if not targetLock então
             targetLock = getClosestPlayerToCursor()
         end
 
-        if targetLock and targetLock.Character then
+        if targetLock and targetLock.Character então
             local aimPosition
-            if aimAtHead then
+            if aimAtHead então
                 aimPosition = targetLock.Character.Head.Position
             else
                 aimPosition = targetLock.Character.UpperTorso.Position
