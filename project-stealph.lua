@@ -61,14 +61,14 @@ local function createGui()
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Cor branca
     MainFrame.Position = UDim2.new(0, 50, 0, 100)
-    MainFrame.Size = UDim2.new(0, 400, 0, 300)
+    MainFrame.Size = UDim2.new(0, 450, 0, 350) -- Aumentando o tamanho do painel
     MainFrame.BorderSizePixel = 2
-    MainFrame.BorderColor3 = Color3.fromRGB(170, 0, 255)
+    MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     MainFrame.Active = true
     MainFrame.Draggable = true
 
     local UICornerMainFrame = Instance.new("UICorner")
-    UICornerMainFrame.CornerRadius = UDim.new(0, 10)
+    UICornerMainFrame.CornerRadius = UDim.new(0, 20) -- Bordas mais arredondadas
     UICornerMainFrame.Parent = MainFrame
 
     LogoButton.Parent = ScreenGui
@@ -87,55 +87,55 @@ local function createGui()
     Title.Size = UDim2.new(1, 0, 0, 60)
     Title.Font = Enum.Font.GothamBlack -- Fonte mais grossa possível
     Title.Text = "Project Aim"
-    Title.TextColor3 = Color3.fromRGB(170, 0, 255)
+    Title.TextColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     Title.TextSize = 36
 
         ToggleAimbotButton.Parent = MainFrame
-    ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
+    ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor clara para botões
     ToggleAimbotButton.Position = UDim2.new(0, 20, 0, 80)
-    ToggleAimbotButton.Size = UDim2.new(0, 350, 0, 60)
+    ToggleAimbotButton.Size = UDim2.new(0, 400, 0, 50) -- Ajustando tamanho
     ToggleAimbotButton.Font = Enum.Font.SourceSansBold
     ToggleAimbotButton.Text = "Aimbot"
-    ToggleAimbotButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    ToggleAimbotButton.TextColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     ToggleAimbotButton.TextSize = 24
     local UICornerAimbotButton = Instance.new("UICorner")
-    UICornerAimbotButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimbotButton.CornerRadius = UDim.new(0, 15) -- Bordas mais arredondadas
     UICornerAimbotButton.Parent = ToggleAimbotButton
 
     ToggleESPButton.Parent = MainFrame
-    ToggleESPButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
-    ToggleESPButton.Position = UDim2.new(0, 20, 0, 150)
-    ToggleESPButton.Size = UDim2.new(0, 350, 0, 60)
+    ToggleESPButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor clara para botões
+    ToggleESPButton.Position = UDim2.new(0, 20, 0, 140)
+    ToggleESPButton.Size = UDim2.new(0, 400, 0, 50) -- Ajustando tamanho
     ToggleESPButton.Font = Enum.Font.SourceSansBold
-    ToggleESPButton.Text = "Esp"
-    ToggleESPButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    ToggleESPButton.Text = "ESP"
+    ToggleESPButton.TextColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     ToggleESPButton.TextSize = 24
     local UICornerESPButton = Instance.new("UICorner")
-    UICornerESPButton.CornerRadius = UDim.new(0, 10)
+    UICornerESPButton.CornerRadius = UDim.new(0, 15) -- Bordas mais arredondadas
     UICornerESPButton.Parent = ToggleESPButton
 
     AimAtHeadButton.Parent = MainFrame
-    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
-    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 220)
-    AimAtHeadButton.Size = UDim2.new(0, 160, 0, 60)
+    AimAtHeadButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor clara para botões
+    AimAtHeadButton.Position = UDim2.new(0, 20, 0, 200)
+    AimAtHeadButton.Size = UDim2.new(0, 190, 0, 50) -- Ajustando tamanho
     AimAtHeadButton.Font = Enum.Font.SourceSansBold
-    AimAtHeadButton.Text = "Aim At Head"
-    AimAtHeadButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtHeadButton.Text = "Aim In Head"
+    AimAtHeadButton.TextColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     AimAtHeadButton.TextSize = 24
     local UICornerAimAtHeadButton = Instance.new("UICorner")
-    UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtHeadButton.CornerRadius = UDim.new(0, 15) -- Bordas mais arredondadas
     UICornerAimAtHeadButton.Parent = AimAtHeadButton
 
     AimAtTorsoButton.Parent = MainFrame
-    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor branca
-    AimAtTorsoButton.Position = UDim2.new(0, 210, 0, 220)
-    AimAtTorsoButton.Size = UDim2.new(0, 160, 0, 60)
+    AimAtTorsoButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230) -- Cor clara para botões
+    AimAtTorsoButton.Position = UDim2.new(0, 230, 0, 200)
+    AimAtTorsoButton.Size = UDim2.new(0, 190, 0, 50) -- Ajustando tamanho
     AimAtTorsoButton.Font = Enum.Font.SourceSansBold
-    AimAtTorsoButton.Text = "Aim At Torso"
-    AimAtTorsoButton.TextColor3 = Color3.fromRGB(170, 0, 255)
+    AimAtTorsoButton.Text = "Aim In Torso"
+    AimAtTorsoButton.TextColor3 = Color3.fromRGB(0, 0, 0) -- Cor preta para contraste
     AimAtTorsoButton.TextSize = 24
     local UICornerAimAtTorsoButton = Instance.new("UICorner")
-    UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 10)
+    UICornerAimAtTorsoButton.CornerRadius = UDim.new(0, 15) -- Bordas mais arredondadas
     UICornerAimAtTorsoButton.Parent = AimAtTorsoButton
 
         -- Funções para os botões
@@ -174,6 +174,32 @@ local function createGui()
 
     LogoButton.MouseButton1Click:Connect(toggleMainFrame)
     LogoButton.TouchTap:Connect(toggleMainFrame)
+end
+
+local targetLock = nil -- Variável para armazenar o alvo atual
+
+local function getClosestPlayerToCursor()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local targetPart = aimAtHead and player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("UpperTorso")
+            if targetPart então
+                local targetPosition = targetPart.Position
+                local targetScreenPos, onScreen = workspace.CurrentCamera:WorldToScreenPoint(targetPosition)
+                local mouseLocation = UserInputService:GetMouseLocation()
+                local distance = (Vector2.new(targetScreenPos.X, targetScreenPos.Y) - mouseLocation).Magnitude
+
+                if distance < shortestDistance então
+                    closestPlayer = player
+                    shortestDistance = distance
+                end
+            end
+        end
+    end
+
+    return closestPlayer
 end
 
 RunService.RenderStepped:Connect(function()
